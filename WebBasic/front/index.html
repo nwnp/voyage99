@@ -56,14 +56,26 @@
         color: gray;
       }
       .wrap {
-        width: 1200px;
+        max-width: 1200px;
+        width: 95%;
         margin: 20px auto 0px auto;
       }
       .myPost {
-        width: 500px;
+        max-width: 500px;
+        width: 95%;
         margin: 20px auto 0px auto;
         box-shadow: 0px 0px 3px 0px gray;
         padding: 20px;
+      }
+      .myBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .myBtn > button {
+        margin-right: 10px;
       }
     </style>
   </head>
@@ -72,8 +84,41 @@
       <h1>내 생애 최고의 영화들</h1>
       <button class="">영화 기록하기🔥</button>
     </div>
-
-    <div class="myPost">간단한 글씨를 씁니다</div>
+    <div class="myPost">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+        />
+        <label for="floatingInput">영화 URL</label>
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">별점</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>선택하기</option>
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐⭐</option>
+          <option value="3">⭐⭐⭐⭐⭐</option>
+        </select>
+      </div>
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+        ></textarea>
+        <label for="floatingTextarea2">코멘트</label>
+      </div>
+      <div class="myBtn">
+        <button type="button" class="btn btn-dark">기록하기</button>
+        <button type="button" class="btn btn-outline-dark">닫기</button>
+      </div>
+    </div>
 
     <div class="wrap">
       <div class="row row-cols-1 row-cols-md-4 g-4">
