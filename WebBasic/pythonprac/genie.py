@@ -6,4 +6,10 @@ data = requests.get('https://www.genie.co.kr/chart/top200?ditc=M&rtm=N&ymd=20210
 
 soup = BeautifulSoup(data.text, 'html.parser')
 
-print(soup)
+musics = soup.select('#body-content > div.newest-list > div > table > tbody > tr')
+
+for music in musics:
+  rank = music.select_one('td.number').text[:2]
+  title = music.select_one('td.info > a.title.ellipsis').text.strip()
+  artist = music.select_one('td.info > a.artist.ellipsis').text
+  print(rank, title, artist)
