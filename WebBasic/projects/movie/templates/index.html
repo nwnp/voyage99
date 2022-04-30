@@ -119,12 +119,16 @@
       }
 
       function posting() {
+        let url = $("#url").val();
+        let start = $("#star").val();
+        let comment = $("#comment").val();
         $.ajax({
           type: "POST",
           url: "/movie",
-          data: { sample_give: "데이터전송" },
+          data: { url_gieve: url, star_give: star, comment_give: comment },
           success: function (response) {
             alert(response["msg"]);
+            window.location.reload();
           },
         });
       }
