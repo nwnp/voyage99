@@ -120,12 +120,12 @@
 
       function posting() {
         let url = $("#url").val();
-        let start = $("#star").val();
+        let star = $("#star").val();
         let comment = $("#comment").val();
         $.ajax({
           type: "POST",
           url: "/movie",
-          data: { url_gieve: url, star_give: star, comment_give: comment },
+          data: { url_give: url, star_give: star, comment_give: comment },
           success: function (response) {
             alert(response["msg"]);
             window.location.reload();

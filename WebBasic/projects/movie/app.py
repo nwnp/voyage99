@@ -13,12 +13,12 @@ def home():
 
 @app.route("/movie", methods=["POST"])
 def movie_post():
-  sample_receive = request.form['url_give']
+  url_receive = request.form['url_give']
   star_receive = request.form['star_give']
   comment_receive = request.form['comment_give']
   
   headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-  data = requests.get(url,headers=headers)
+  data = requests.get(url_receive,headers=headers)
 
   soup = BeautifulSoup(data.text, 'html.parser')
 
@@ -29,10 +29,11 @@ def movie_post():
   doc = {
     'title': title,
     'image': image,
-    'star':star_receive,
+    'desc': desc,
+    'star': star_receive,
     'comment': comment_receive
   }
-  db.mvoies.insert_one(doc)
+  db.movies.insert_one(doc)
 
   return jsonify({'msg':'저장 완료!'})
 
