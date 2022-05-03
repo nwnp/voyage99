@@ -13,4 +13,6 @@ movies = soup.select('#old_content > table > tbody > tr')
 for movie in movies:
   a = movie.select_one('td.title > div > a')
   if a is not None:
-    print(a.text)
+    title = a.text
+    rank = movie.select_one('td:nth-child(1) > img')['alt']
+    star = movie.select_one('td.point').text
