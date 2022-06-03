@@ -13,6 +13,11 @@ const get = async (req, res, next) => {
 const enrollment = async (req, res, next) => {
   try {
     const { postId, userName, comment } = req.body;
+    if (comment === null || comment === undefined || comment === "") {
+      return res.status(400).json({
+        message: "댓글 내용을 입력해주세요.",
+      });
+    }
     const result = await Comment.create({
       postId,
       userName,
