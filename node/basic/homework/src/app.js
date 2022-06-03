@@ -4,8 +4,10 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const path = require("path");
 const config = require("./config/env/development");
+const connect = require("./schemas/index");
+
+connect();
 
 dotenv.config();
 
@@ -13,6 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const secret = process.env.COOKIE_SECRET;
 
+const indexRouter = require("./routes/index");
 const commentRouter = require("./routes/comment");
 const postRouter = require("./routes/posts");
 
@@ -20,7 +23,7 @@ app.set("views", "src/views");
 app.set("view engine", "pug");
 
 app.use(morgan("dev"));
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static("src/public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -37,10 +40,7 @@ app.use(
   })
 );
 
-app.get("/", (req, res, next) => {
-  res.send("<h1>Hello world!</h1>");
-});
-
+app.use("/", indexRouter);
 app.use("/api", [commentRouter, postRouter]);
 
 app.listen(PORT, () => {
