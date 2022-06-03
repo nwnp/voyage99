@@ -25,3 +25,7 @@ $ npm install
 ```bash
 $ npm start
 ```
+
+### notice
+
+- .env 파일이 없기 때문에 그냥 실행을 하면 에러날 수 있음
