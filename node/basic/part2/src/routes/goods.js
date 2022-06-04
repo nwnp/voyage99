@@ -49,4 +49,32 @@ router.post("/goods", async (req, res) => {
   res.json({ goods: createdGoods });
 });
 
+router.get("/goods/cart", async (req, res) => {
+  const carts = await Cart.find();
+  const goodsIds = carts.map((cart) => cart.goodsId);
+
+  const goods = await Goods.find({ goodsId: goodsIds });
+
+  res.json({
+    cart: carts.map((cart) => ({
+      quantity: cart.quantity,
+      goods: goods.find((item) => item.goodsId === cart.goodsId),
+    })),
+  });
+});
+
+router.put("/goods/:goodsId/cart", async (req, res) => {
+  const { goodsId } = req.params;
+  const { quantity } = req.body;
+
+  const existsCarts = await Cart.find({ goodsId: Number(goodsId) });
+  if (!existsCarts.length) {
+    await Cart.create({ goodsId: Number(goodsId), quantity });
+  } else {
+    await Cart.updateOne({ goodsId: Number(goodsId) }, { $set: { quantity } });
+  }
+
+  res.json({ success: true });
+});
+
 module.exports = router;

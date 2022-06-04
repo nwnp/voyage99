@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 8080;
 // connection
 connect();
 
+app.use(express.urlencoded());
+app.use(express.static("src/static"));
 app.use(morgan("dev"));
 app.use(express.json());
 
