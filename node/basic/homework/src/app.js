@@ -22,23 +22,45 @@ const postRouter = require("./routes/posts");
 app.set("views", "src/views");
 app.set("view engine", "pug");
 
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
+} else {
+  app.use(morgan("dev"));
+}
+
 app.use("/public", express.static("src/public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser(secret));
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: false,
-    secret: config.sessionSecret,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-    },
-  })
-);
+
+const sessionOption = {
+  resave: true,
+  saveUninitialized: false,
+  secret: config.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+};
+
+if (process.env.NODE_ENV === "production") {
+  sessionOption.proxy = true;
+}
+
+app.use(session(sessionOption));
+// app.use(
+//   session({
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: config.COOKIE_SECRET,
+//     cookie: {
+//       httpOnly: true,
+//       secure: false,
+//     },
+//   })
+// );
 
 app.use("/", indexRouter);
 app.use("/api", [commentRouter, postRouter]);

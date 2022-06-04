@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "jest",
-    "start": "nodemon app"
+    "start": "NODE_ENV=production PORT=80 pm2 start src/app.js -i 0",
+    "dev": "nodemon app",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +14,13 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mongoose": "^6.3.5",
     "morgan": "^1.10.0",
+    "pm2": "^5.2.0",
     "pug": "^3.0.2",
     "tailwindcss": "^3.0.24"
   },
