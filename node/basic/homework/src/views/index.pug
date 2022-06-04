@@ -1,6 +1,22 @@
 html 
   head 
+    link(rel="stylesheet", href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css")
     link(rel="stylesheet", href="/public/index.css")
+    link(rel="stylesheet", href="//fonts.googleapis.com/earlyaccess/jejumyeongjo.css")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Jua&display=swap")
   body 
-    h1.white homework 
-    p.big.white 게시글 목록
+    h1.div-background.bg-gradient-to-t.bg.from-blue-200.p-16.text-4xl.font-color.font-extrabold homework 
+    div
+      p#posts.big.space-x-1.m-11.font-bold 게시글 목록
+      div.m-11
+        each post, index in posts
+          div.inline-block.flex-col.m-8.div-background.rounded-xl.p-3.border-8
+            p 제목: #{post.title}
+            p 작성자: #{post.userName}
+            p 생성일: #{post.createdAt}
+            form(action=`http://localhost:8080/api/posts/detail/${post.id}`, method="get") 
+              fieldset 
+                button(type="submit")#send.bg-blue-200.text-white.p-2.rounded-xl 내용 보기
+
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js") 
+  script(src="/public/client.js")

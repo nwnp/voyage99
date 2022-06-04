@@ -37,7 +37,7 @@ const enrollment = async (req, res, next) => {
 
 const detail = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const post = await Post.find({ _id: id });
     const result = post.map((post) => {
       return {

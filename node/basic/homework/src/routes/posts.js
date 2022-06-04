@@ -16,7 +16,7 @@ router.post("/posts/enrollment", ctrlPost.enrollment);
 /** 게시글 조회 */
 // GET /posts/detail
 // title, userName, createdAt, content
-router.get("/posts/detail", ctrlPost.detail);
+router.get("/posts/detail/:id", ctrlPost.detail);
 
 /** 게시글 수정 */
 // PATCH /posts
