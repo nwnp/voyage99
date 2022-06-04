@@ -4,27 +4,27 @@ const router = express.Router();
 const ctrlPost = require("../controllers/ctrl.post");
 
 /** 전체 게시글 목록 가져오기 */
-// GET /post
+// GET /posts
 // title, userName, createdAt(DESC)
-router.get("/post", ctrlPost.get);
+router.get("/posts", ctrlPost.get);
 
 /** 게시글 작성 */
-// POST /post/enrollment
+// POST /posts/enrollment
 // title, userName, content, (createdAt)
-router.post("/post/enrollment", ctrlPost.enrollment);
+router.post("/posts/enrollment", ctrlPost.enrollment);
 
 /** 게시글 조회 */
-// GET /post/detail
+// GET /posts/detail
 // title, userName, createdAt, content
-router.get("/post/detail", ctrlPost.detail);
+router.get("/posts/detail", ctrlPost.detail);
 
 /** 게시글 수정 */
-// PATCH /post
+// PATCH /posts
 // title, userName, content 중 하나 수정
-router.patch("/post", ctrlPost.update);
+router.patch("/posts", ctrlPost.update);
 
 /** 게시글 삭제 */
-// DELETE /post/:postId
-router.delete("/post/:postId", ctrlPost.remove);
+// DELETE /posts/:postId
+router.delete("/posts/:postId", ctrlPost.remove);
 
 module.exports = router;

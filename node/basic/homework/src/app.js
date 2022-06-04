@@ -7,9 +7,9 @@ const session = require("express-session");
 const config = require("./config/env/development");
 const connect = require("./schemas/index");
 
-connect();
-
 dotenv.config();
+
+connect();
 
 const app = express();
 const PORT = process.env.PORT || 8080;

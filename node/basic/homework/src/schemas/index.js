@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const connect = () => {
   mongoose.set("debug", true);
-
   mongoose.connect(
-    "mongodb://mongo:mongo@localhost:27017/admin",
-    { dbName: "hw_first" },
+    `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:${process.env.DB_PORT}/${process.env.DB_MANAGER}`,
+    { dbName: process.env.DB_DATABASE },
     (err) => {
       if (err) {
         console.error("db connection error", err);
@@ -15,10 +14,6 @@ const connect = () => {
     }
   );
 };
-
-mongoose.connection.on("error", (err) => {
-  console.error("mongodb connection error", err);
-});
 
 mongoose.connection.on("disconnected", () => {
   console.error("mongodb disconnected");
