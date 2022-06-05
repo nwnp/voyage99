@@ -13,9 +13,9 @@ const get = async (req, res, next) => {
         createdAt: post.createdAt,
       };
     });
-    return res.status(200).json({ result });
+    res.render("index");
+    // return res.status(200).json({ result });
   } catch (error) {
-    console.error(error);
     return res.status(400).json({ error });
   }
 };
@@ -23,14 +23,13 @@ const get = async (req, res, next) => {
 const enrollment = async (req, res, next) => {
   try {
     const { title, userName, content } = req.body;
-    const newPost = await Post.create({
+    await Post.create({
       title,
       userName,
       content,
     });
-    return res.status(200).json({ newPost });
+    return res.redirect("/");
   } catch (error) {
-    console.error(error);
     return res.status(400).json({ error });
   }
 };
@@ -48,7 +47,8 @@ const detail = async (req, res, next) => {
         createdAt: post.createdAt,
       };
     });
-    return res.status(200).json({ result });
+    return res.render("main.html");
+    // return res.status(200).json({ result });
   } catch (error) {
     console.error(error);
     return res.status(400).json({ error });
@@ -57,8 +57,9 @@ const detail = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const { id, title, userName, content } = req.body;
-    const result = await Post.updateOne(
+    const { id } = req.params;
+    const { title, userName, content } = req.body;
+    await Post.updateOne(
       { _id: id },
       {
         title,

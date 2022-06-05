@@ -10,8 +10,6 @@
 - mongoose
 - dotenv
 - morgan
-- pug
-- tailwindcss
 - devDependencies: nodemon
 
 ## install

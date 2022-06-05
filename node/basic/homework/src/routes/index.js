@@ -1,11 +1,8 @@
 const express = require("express");
-const Post = require("../schemas/post");
 
 const router = express.Router();
+const ctrlPost = require("../controllers/ctrl.post");
 
-router.get("/", async (req, res, next) => {
-  const posts = await Post.find({});
-  res.render("index", { posts });
-});
+router.get("/", ctrlPost.get);
 
 module.exports = router;

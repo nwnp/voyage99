@@ -19,9 +19,6 @@ const indexRouter = require("./routes/index");
 const commentRouter = require("./routes/comment");
 const postRouter = require("./routes/posts");
 
-app.set("views", "src/views");
-app.set("view engine", "pug");
-
 // app.use(morgan("dev"));
 if (process.env.NODE_ENV === "production") {
   app.use(morgan("combined"));
@@ -30,6 +27,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use("/public", express.static("src/public"));
+app.use(express.static("src/static"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
