@@ -13,8 +13,8 @@ const get = async (req, res, next) => {
         createdAt: post.createdAt,
       };
     });
-    res.render("index");
-    // return res.status(200).json({ result });
+    // res.render("index");
+    return res.status(200).json({ result });
   } catch (error) {
     return res.status(400).json({ error });
   }
@@ -23,12 +23,12 @@ const get = async (req, res, next) => {
 const enrollment = async (req, res, next) => {
   try {
     const { title, userName, content } = req.body;
-    await Post.create({
+    const result = await Post.create({
       title,
       userName,
       content,
     });
-    return res.redirect("/");
+    return res.status(201).json({ result });
   } catch (error) {
     return res.status(400).json({ error });
   }
@@ -47,8 +47,7 @@ const detail = async (req, res, next) => {
         createdAt: post.createdAt,
       };
     });
-    return res.render("main.html");
-    // return res.status(200).json({ result });
+    return res.status(200).json({ result });
   } catch (error) {
     console.error(error);
     return res.status(400).json({ error });
