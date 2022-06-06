@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   password: String,
 });
 
-UserSchema.virtual("userId").get(() => {
+UserSchema.virtual("userId").get(function () {
   return this._id.toHexString();
 });
 
