@@ -1,5 +1,6 @@
 const express = require("express");
-const User = require("../schemas/user");
+const { Op } = require("sequelize");
+const User = require("../models");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/auth-middleware");
@@ -24,8 +25,10 @@ router.post("/users", async (req, res, next) => {
     });
   }
 
-  const existUsers = await User.find({
-    $or: [{ email }, { nickname }], // email or nickname이 있는지 확인
+  const existUsers = await User.findAll({
+    where: {
+      [Op.or]: [{ nickname }, { email }],
+    },
   });
 
   if (existUsers.length) {
@@ -34,8 +37,7 @@ router.post("/users", async (req, res, next) => {
     });
   }
 
-  const user = new User({ email, nickname, password });
-  await user.save();
+  await User.create({ email, nickname, password });
 
   return res.status(201).send({});
 });
@@ -43,7 +45,7 @@ router.post("/users", async (req, res, next) => {
 // login
 router.post("/auth", async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email, password }).exec();
+  const user = await User.findOne({ where: { email, password } });
 
   if (!user) {
     return res.status(401).send({

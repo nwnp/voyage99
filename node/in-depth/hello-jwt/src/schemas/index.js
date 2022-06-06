@@ -4,7 +4,7 @@ const connect = () => {
   mongoose.connect(
     "mongodb://mongo:mongo@localhost/admin",
     {
-      dbName: "shopping-mall",
+      dbName: "shopping-demo",
     },
     (err) => {
       if (err) {

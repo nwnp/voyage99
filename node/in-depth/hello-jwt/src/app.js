@@ -4,9 +4,18 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const connect = require("./schemas/index");
+const { sequelize } = require("./models");
 
 dotenv.config();
 connect();
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("mysql connection success");
+  })
+  .catch((err) => {
+    console.error("database connection false", err);
+  });
 
 const app = express();
 const PORT = process.env.PORT || 8080;

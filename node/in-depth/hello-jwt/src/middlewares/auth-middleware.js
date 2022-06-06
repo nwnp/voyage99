@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../schemas/user");
+const User = require("../models");
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -13,8 +13,7 @@ module.exports = (req, res, next) => {
 
   try {
     const { userId } = jwt.verify(tokenValue, process.env.MY_SECRET_KEY);
-    User.findOne({ userId })
-      .exec()
+    User.findByPk(userId)
       .then((user) => {
         res.locals.user = user; // 사용자 정보를 담아서 넘김
         next(); // 모든 예외처리가 패스된 이후에만 next()
